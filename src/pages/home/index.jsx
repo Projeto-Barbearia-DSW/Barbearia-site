@@ -95,9 +95,10 @@ export default function Home() {
                         <h1>PLANOS</h1>
                     </div>
                     <div className="descricao">
-                        <p>Na nossa barbearia, acreditamos que cada cliente merece uma experiência única e
-                            personalizada. Por isso, oferecemos diferentes planos para atender às suas necessidades e
-                            preferências.</p>
+                        <p>Na nossa barbearia, cada cliente é especial e queremos que você tenha a melhor experiência possível.
+                            Por isso, oferecemos uma variedade de planos fixos. Confira presencialmente em nossa loja e escolha a opção que melhor se
+                            adapta às suas necessidades. Estamos ansiosos para recebê-lo e ajudar você a encontrar o plano perfeito!.
+                        </p>
                     </div>
                     <div className="servicos">
                         <Servicos
