@@ -7,7 +7,9 @@ export default function Home() {
             <div className={"cabecalho"}>
                 <header>
                     <div className="logo">
-                        <img src={"/assets/logo.svg"} alt="Logo" />
+                        <a href="#inicio">
+                            <img src={"/assets/logo.svg"} alt="Logo"/>
+                        </a>
                     </div>
                     <nav className="nav-menu">
                         <ul>
