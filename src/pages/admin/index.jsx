@@ -9,7 +9,7 @@ export default function Admin() {
         if (localStorage.getItem('TOKEN') === null || localStorage.getItem('TOKEN') === undefined) {
             navigate('/');
         }
-    }, []);
+    }, [navigate]);
 
     function logoff() {
         localStorage.removeItem('TOKEN');

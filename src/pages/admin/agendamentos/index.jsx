@@ -13,7 +13,7 @@ export default function Agendamentos() {
             navigate('/');
         }
         listarAgendamentos();
-    }, []);
+    }, [navigate]);
 
     async function listarAgendamentos() {
         let token = localStorage.getItem('TOKEN');
