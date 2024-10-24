@@ -1,15 +1,17 @@
 import './index.scss';
 import Servicos from "../../components/servicos";
+import {Link} from 'react-router-dom';
 
 export default function Home() {
+
     return (
         <div className={"pagina-home"}>
             <div className={"cabecalho"}>
                 <header>
                     <div className="logo">
-                        <a href="#inicio">
+                        <Link to='/Login' className="opcao">
                             <img src={"/assets/logo.svg"} alt="Logo"/>
-                        </a>
+                        </Link>
                     </div>
                     <nav className="nav-menu">
                         <ul>
