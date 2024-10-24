@@ -252,15 +252,15 @@
 
       th, td {
         padding: 30px 20px;
-        text-align: left; /* Alinhamento padrão à esquerda */
+        text-align: left;
       }
 
       th:nth-child(2) {
-        text-align: right; /* Alinha o segundo item à direita */
+        text-align: right;
       }
 
       td:nth-child(2) {
-        text-align: right; /* Alinha o segundo item à direita */
+        text-align: right;
       }
 
       th {
@@ -326,26 +326,26 @@
         position: relative;
 
         .barber1 {
-          position: absolute; /* Muda a posição para absoluta */
+          position: absolute;
           top: 100px;
-          left: 400px; /* Ajuste conforme necessário */
+          left: 400px;
           z-index: 3;
 
         }
 
         .barber2 {
-          position: absolute; /* Muda a posição para absoluta */
-          top: 380px; /* Ajuste para sobrepor com barber1 */
-          left: 120px; /* Ajuste para sobrepor com barber1 */
+          position: absolute;
+          top: 380px;
+          left: 120px;
           z-index: 2;
 
         }
 
         .barber3 {
-          position: absolute; /* Muda a posição para absoluta */
-          top: 380px; /* Ajuste para sobrepor com barber1 e barber2 */
-          left: 630px; /* Ajuste para sobrepor com barber1 e barber2 */
-          z-index: 1; /* Define a camada para a imagem 3 */
+          position: absolute;
+          top: 380px;
+          left: 630px;
+          z-index: 1;
 
         }
       }
@@ -432,8 +432,5 @@
         }
       }
     }
-
   }
-
-
 }
