@@ -9,7 +9,7 @@ export default function Agendamentos() {
 
     useEffect(() => {
 
-        if (localStorage.getItem('TOKEN') == undefined) {
+        if (localStorage.getItem('TOKEN') === null || localStorage.getItem('TOKEN') === undefined) {
             navigate('/');
         }
         listarAgendamentos();

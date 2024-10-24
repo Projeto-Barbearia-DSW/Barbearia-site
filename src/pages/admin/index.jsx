@@ -6,10 +6,9 @@ export default function Admin() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (localStorage.getItem('TOKEN') == undefined) {
+        if (localStorage.getItem('TOKEN') === null || localStorage.getItem('TOKEN') === undefined) {
             navigate('/');
         }
-
     }, []);
 
     function logoff() {
