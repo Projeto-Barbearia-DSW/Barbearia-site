@@ -7,19 +7,17 @@ export default function Home() {
             <div className={"cabecalho"}>
                 <header>
                     <div className="logo">
-                        <img src={"/assets/logo.svg"} alt="Logo"/>
+                        <img src={"/assets/logo.svg"} alt="Logo" />
                     </div>
                     <nav className="nav-menu">
                         <ul>
-                            <li><a>Inicio</a></li>
-                            <li><a>Serviços</a></li>
-                            <li><a>Serviços Feitos</a></li>
-                            <li><a>Planos</a></li>
-                            <li><a>Quimíca e coloração</a></li>
-                            <li><a>Localização</a></li>
-                            <li><a>Sobre</a></li>
-
-
+                            <li><a href="#inicio">Início</a></li>
+                            <li><a href="#servicos">Serviços</a></li>
+                            <li><a href="#servicos-feitos">Serviços Feitos</a></li>
+                            <li><a href="#planos">Planos</a></li>
+                            <li><a href="#quimica-coloracao">Química e Coloração</a></li>
+                            <li><a href="#localizacao">Localização</a></li>
+                            <li><a href="#sobre">Sobre</a></li>
                         </ul>
                     </nav>
                     <div className="action-button">
@@ -28,7 +26,7 @@ export default function Home() {
                 </header>
             </div>
 
-            <div className={"secao1"}>
+            <div className={"secao1"} id="inicio">
                 <section>
                     <div className="titulo">
                         <h1>ESTILO É UM REFLEXO DA SUA ATITUDE E SUA PERSONALIDADE</h1>
@@ -42,7 +40,7 @@ export default function Home() {
                 </section>
             </div>
 
-            <div className={"secao2"}>
+            <div className={"secao2"} id="servicos">
                 <section>
                     <div className="titulo">
                         <h1>Serviços</h1>
@@ -67,7 +65,7 @@ export default function Home() {
                 </section>
             </div>
 
-            <div className={"secao3"}>
+            <div className={"secao3"} id="servicos-feitos">
                 <section>
                     <div className="titulo">
                         <h1>Serviços Feitos</h1>
@@ -89,7 +87,7 @@ export default function Home() {
                 </section>
             </div>
 
-            <div className="secao4">
+            <div className="secao4" id="planos">
                 <section>
                     <div className="titulo">
                         <h1>PLANOS</h1>
@@ -117,7 +115,7 @@ export default function Home() {
                 </section>
             </div>
 
-            <div className={"secao5"}>
+            <div className={"secao5"} id="quimica-coloracao">
                 <section>
                     <div className="titulo">
                         <h1>Química e Coloração</h1>
@@ -153,7 +151,7 @@ export default function Home() {
                 </section>
             </div>
 
-            <div className={"secao6"}>
+            <div className={"secao6"} id="localizacao">
                 <section>
                     <div className="titulo">
                         <h1>Localização</h1>
@@ -175,20 +173,18 @@ export default function Home() {
                             loading="lazy"
                             draggable="false"
                             tabIndex="0"
+                            title="Mapa da Localização da Barbearia"
                         ></iframe>
                     </div>
-
-
                 </section>
             </div>
 
-
-            <div className={"secao7"}>
+            <div className={"secao7"} id="sobre">
                 <section>
                     <div className={"imagens"}>
-                        <img className={"barber1"} src="/assets/barbeiro1.svg" alt="Barbeiro 1"/>
-                        <img className={"barber2"} src="/assets/barbeiro2.svg" alt="Barbeiro 2"/>
-                        <img className={"barber3"} src="/assets/barbeiro3.svg" alt="Barbeiro 3"/>
+                        <img className={"barber1"} src="/assets/barbeiro1.svg" alt="Barbeiro 1" />
+                        <img className={"barber2"} src="/assets/barbeiro2.svg" alt="Barbeiro 2" />
+                        <img className={"barber3"} src="/assets/barbeiro3.svg" alt="Barbeiro 3" />
                     </div>
                     <div className={"textos"}>
                         <div className="titulo">
@@ -197,34 +193,28 @@ export default function Home() {
                         <div className="descricao">
                             <p>Bem-vindo à nossa barbearia, onde estilo e tradição se encontram!</p>
 
-                            <p>Desde o nosso início, temos nos dedicado a criar um espaçoacolhedor.
+                            <p>Desde o nosso início, temos nos dedicado a criar um espaço acolhedor.
                                 Nossa equipe é composta por barbeiros experientes, cada um trazendo seu próprio estilo e
-                                expertise.
-                                Aqui, acreditamos que um bom corte ou um barbear bem feito vai além da estética é um
-                                ritual
+                                expertise. Aqui, acreditamos que um bom corte ou um barbear bem feito vai além da estética; é um ritual
                                 de cuidado e autoestima.
                             </p>
 
-                            <p>Acreditamos que cada cliente é único, e por isso, oferecemos um atendimento
-                                personalizado.
-                                Nossa abordagem vai além dos serviços; buscamos entender suas necessidades e
-                                preferências,
-                                garantindo que você saia da nossa barbearia não apenas satisfeito, mas verdadeiramente
-                                renovado.
+                            <p>Acreditamos que cada cliente é único, e por isso, oferecemos um atendimento personalizado.
+                                Nossa abordagem vai além dos serviços; buscamos entender suas necessidades e preferências,
+                                garantindo que você saia da nossa barbearia não apenas satisfeito, mas verdadeiramente renovado.
                             </p>
 
                             <p>Estamos sempre prontos para recebê-lo de braços abertos! Se você procura um lugar onde
                                 tradição e inovação andam lado a lado,
-                                a nossa barbearia é o seu destino. Junte-se a nós e descubra o prazer de um bom corte e
-                                um
+                                a nossa barbearia é o seu destino. Junte-se a nós e descubra o prazer de um bom corte e um
                                 atendimento excepcional.
                                 Esperamos vê-lo em breve!
                             </p>
-                                 <div className="horario">
-                                    <p><strong>Horário de funcionamento: 09:00 às 22:00</strong></p>
-                                    <img src={"/assets/whatsapp.svg"} alt={"logo Whatsapp"}/>
-                                 </div>
+                            <div className="horario">
+                                <p><strong>Horário de funcionamento: 09:00 às 22:00</strong></p>
+                                <img src={"/assets/whatsapp.svg"} alt={"logo Whatsapp"} />
                             </div>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -238,7 +228,7 @@ export default function Home() {
                             <p>brunaocareca@gmail.com</p>
                         </div>
                         <div className="footer-column logo-column">
-                            <img src="/assets/logo.svg" alt="Logo Barbearia" className="footer-logo"/>
+                            <img src="/assets/logo.svg" alt="Logo Barbearia" className="footer-logo" />
                             <div className="social-icons">
                                 <img src="/assets/whatsapp-f.svg" alt="Icone 1"/>
                                 <img src="/assets/instagram-f.svg" alt="Icone 2"/>
