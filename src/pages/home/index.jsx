@@ -7,7 +7,7 @@ export default function Home() {
             <div className={"cabecalho"}>
                 <header>
                     <div className="logo">
-                        <img src={"../../assets/logo.svg"} alt="Logo"/>
+                        <img src={"/assets/logo.svg"} alt="Logo"/>
                     </div>
                     <nav className="nav-menu">
                         <ul>
@@ -34,7 +34,7 @@ export default function Home() {
                         <h1>ESTILO É UM REFLEXO DA SUA ATITUDE E SUA PERSONALIDADE</h1>
                     </div>
                     <div className="descricao">
-                        <p>Horário de funcionamento: 09:00 ás 22:00</p>
+                        <p>Horário de funcionamento: 09:00 às 22:00</p>
                     </div>
                     <div className="action-button">
                         <button>Agendar Horário</button>
@@ -45,22 +45,22 @@ export default function Home() {
             <div className={"secao2"}>
                 <section>
                     <div className="titulo">
-                        <h1>NOSSOS SERVIÇOS</h1>
+                        <h1>Serviços</h1>
                     </div>
                     <div className="servicos">
                         <Servicos
                             titulo="Corte de Cabelo"
-                            imagem="../../assets/corte-de-cabelo.svg"
+                            imagem="/assets/corte-de-cabelo.svg"
                             valor="R$ 40,00"
                         />
                         <Servicos
                             titulo="Barba"
-                            imagem="../../assets/barba.jpg"
+                            imagem="/assets/penteado.svg"
                             valor="R$ 30,00"
                         />
                         <Servicos
                             titulo="Penteado"
-                            imagem="../../assets/penteado.jpg"
+                            imagem="/assets/barba.svg"
                             valor="R$ 50,00"
                         />
                     </div>
@@ -70,26 +70,26 @@ export default function Home() {
             <div className={"secao3"}>
                 <section>
                     <div className="titulo">
-                        <h1>SERVIÇOS FEITOS</h1>
+                        <h1>Serviços Feitos</h1>
                     </div>
                     <div className="servicos">
                         <Servicos
                             titulo="Corte de Cabelo"
-                            imagem="src/assets/corte-de-cabelo.svg"
+                            imagem="/assets/corte-de-cabelo.svg"
                         />
                         <Servicos
                             titulo="Barba"
-                            imagem="../../assets/barba.jpg"
+                            imagem="/assets/barba.svg"
                         />
                         <Servicos
                             titulo="Penteado"
-                            imagem="../../assets/penteado.jpg"
+                            imagem="/assets/penteado.svg"
                         />
                     </div>
                 </section>
             </div>
 
-            <div className={"secao4"}>
+            <div className="secao4">
                 <section>
                     <div className="titulo">
                         <h1>PLANOS</h1>
@@ -102,16 +102,16 @@ export default function Home() {
                     </div>
                     <div className="servicos">
                         <Servicos
-                            valor="R$ 40,00"
-                            imagem="src/assets/corte-de-cabelo.svg"
+                            titulo="R$ 40,00"
+                            imagem="/assets/promocao-1.svg"
                         />
                         <Servicos
-                            valor="R$ 30,00"
-                            imagem="../../assets/barba.jpg"
+                            titulo="R$ 30,00/mês"
+                            imagem="/assets/promocao-2.svg"
                         />
                         <Servicos
-                            valor="R$ 50,00"
-                            imagem="../../assets/penteado.jpg"
+                            titulo="R$ 115,00/mês"
+                            imagem="/assets/promocao-2.svg"
                         />
                     </div>
                 </section>
@@ -120,7 +120,7 @@ export default function Home() {
             <div className={"secao5"}>
                 <section>
                     <div className="titulo">
-                        <h1>QUÍMICA E COLORAÇÃO</h1>
+                        <h1>Química e Coloração</h1>
                     </div>
                     <div className="table-wrapper">
                         <table>
@@ -133,15 +133,19 @@ export default function Home() {
                             <tbody>
                             <tr>
                                 <td>Luzes</td>
-                                <td>R$ 40,00</td>
+                                <td>R$ 60,00</td>
                             </tr>
                             <tr>
-                                <td>Alisamento</td>
-                                <td>R$ 30,00</td>
+                                <td>Alisamento ou relaxante</td>
+                                <td>R$ 25,00</td>
+                            </tr>
+                            <tr>
+                                <td>Botox</td>
+                                <td>R$ 70,00</td>
                             </tr>
                             <tr>
                                 <td>Progressiva</td>
-                                <td>R$ 50,00</td>
+                                <td>R$ 70,00</td>
                             </tr>
                             </tbody>
                         </table>
@@ -161,14 +165,32 @@ export default function Home() {
                             823 em SP capital, um lugar de fácil acesso e com estacionamento próximo.</p>
                     </div>
 
+                    <div className="mapa">
+                        <iframe
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Centro%20Universitario%20Senac&zoom=15&maptype=roadmap"
+                            width="600"
+                            height="450"
+                            style={{ border: 0 }}
+                            allowFullScreen="false"
+                            loading="lazy"
+                            draggable="false"
+                            scrolling="no"
+                            frameBorder="0"
+                            tabIndex="0"
+                        ></iframe>
+                    </div>
+
+
                 </section>
             </div>
+
 
             <div className={"secao7"}>
                 <section>
                     <div className={"imagens"}>
-                        <img src="../../assets/barbeiro1.svg" alt="Barbeiro 1"/>
-                        <img src="../../assets/barbeiro2.svg" alt="Barbeiro 2"/>
+                        <img className={"barber1"} src="/assets/barbeiro1.svg" alt="Barbeiro 1"/>
+                        <img className={"barber2"} src="/assets/barbeiro2.svg" alt="Barbeiro 2"/>
+                        <img className={"barber3"} src="/assets/barbeiro3.svg" alt="Barbeiro 3"/>
                     </div>
                     <div className={"textos"}>
                         <div className="titulo">
@@ -180,7 +202,7 @@ export default function Home() {
                             <p>Desde o nosso início, temos nos dedicado a criar um espaçoacolhedor.
                                 Nossa equipe é composta por barbeiros experientes, cada um trazendo seu próprio estilo e
                                 expertise.
-                                Aqui, acreditamos que um bom corte ou um barbear bem feito vai além da estética—é um
+                                Aqui, acreditamos que um bom corte ou um barbear bem feito vai além da estética é um
                                 ritual
                                 de cuidado e autoestima.
                             </p>
@@ -200,7 +222,11 @@ export default function Home() {
                                 atendimento excepcional.
                                 Esperamos vê-lo em breve!
                             </p>
-                        </div>
+                                 <div className="horario">
+                                    <p><strong>Horário de funcionamento: 09:00 às 22:00</strong></p>
+                                    <img src={"/assets/whatsapp.svg"}/>
+                                 </div>
+                            </div>
                     </div>
                 </section>
             </div>
@@ -214,13 +240,13 @@ export default function Home() {
                             <p>brunaocareca@gmail.com</p>
                         </div>
                         <div className="footer-column logo-column">
-                            <img src="../../assets/logo.svg" alt="Logo Barbearia" className="footer-logo"/>
+                            <img src="/assets/logo.svg" alt="Logo Barbearia" className="footer-logo"/>
                             <div className="social-icons">
-                                <img src="" alt="Icone 1"/>
-                                <img src="" alt="Icone 2"/>
-                                <img src="" alt="Icone 3"/>
+                                <img src="/assets/whatsapp-f.svg" alt="Icone 1"/>
+                                <img src="/assets/instagram-f.svg" alt="Icone 2"/>
+                                <img src="/assets/facebook-f.svg" alt="Icone 3"/>
                             </div>
-                            <p>Rua Exemplo, 123, Cidade</p>
+                            <p> Av. Eng. Eusébio Stevaux, 823 - Santo Amaro, São Paulo - SP, 04696-000</p>
                         </div>
                         <div className="footer-column">
                             <h3>Horário</h3>
