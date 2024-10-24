@@ -174,8 +174,6 @@ export default function Home() {
                             allowFullScreen="false"
                             loading="lazy"
                             draggable="false"
-                            scrolling="no"
-                            frameBorder="0"
                             tabIndex="0"
                         ></iframe>
                     </div>
@@ -224,7 +222,7 @@ export default function Home() {
                             </p>
                                  <div className="horario">
                                     <p><strong>Horário de funcionamento: 09:00 às 22:00</strong></p>
-                                    <img src={"/assets/whatsapp.svg"}/>
+                                    <img src={"/assets/whatsapp.svg"} alt={"logo Whatsapp"}/>
                                  </div>
                             </div>
                     </div>
