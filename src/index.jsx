@@ -4,6 +4,9 @@ import './index.scss';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./pages/home";
 import Login from "./pages/login";
+import Agendamento from "./pages/agendamento";
+import Agendamentos from "./pages/admin/agendamentos";
+import Admin from "./pages/admin";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,6 +15,9 @@ root.render(
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/agendamento" element={<Agendamento />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin/agendamentos" element={<Agendamentos />} />
             </Routes>
         </BrowserRouter>
   </React.StrictMode>

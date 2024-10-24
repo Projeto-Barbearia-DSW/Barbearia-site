@@ -22,7 +22,7 @@ export default function Login() {
 
             localStorage.setItem('TOKEN', resp.data.token);
 
-            navigate('/home');
+            navigate('/admin');
         }
         catch (err) {
             alert(err.message)
@@ -35,7 +35,7 @@ export default function Login() {
 
             <div className='form'>
                 <div>
-                    <label>E-mail ou Usuario</label>
+                    <label>E-mail</label>
                     <input type='text' value={email} onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div>

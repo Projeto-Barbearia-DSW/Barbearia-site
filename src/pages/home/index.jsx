@@ -9,7 +9,7 @@ export default function Home() {
             <div className={"cabecalho"}>
                 <header>
                     <div className="logo">
-                        <Link to='/Login' className="opcao">
+                        <Link to='/Login' className="login">
                             <img src={"/assets/logo.svg"} alt="Logo"/>
                         </Link>
                     </div>
@@ -25,7 +25,9 @@ export default function Home() {
                         </ul>
                     </nav>
                     <div className="action-button">
-                        <button>Agendar Horário</button>
+                        <Link to='/Agendamento' className="opcao">
+                            <button>Agendar Horário</button>
+                        </Link>
                     </div>
                 </header>
             </div>
