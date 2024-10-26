@@ -1,8 +1,26 @@
 import './index.scss';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Servicos from "../../components/servicos";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 export default function Home() {
+    const [servico, setServico] = useState([]);
+
+    useEffect(() => {
+        listarServicos();
+    }, []);
+
+    async function listarServicos() {
+        try {
+            let resp = await axios.get(`${apiUrl}servico`);
+            setServico(resp.data);
+        } catch (error) {
+            console.error('Erro ao listar serviços:', error);
+        }
+    }
 
     return (
         <div className={"pagina-home"}>
@@ -10,7 +28,7 @@ export default function Home() {
                 <header>
                     <div className="logo">
                         <Link to='/Login' className="login">
-                            <img src={"/assets/logo.svg"} alt="Logo"/>
+                            <img src={"/assets/logo.svg"} alt="Logo" />
                         </Link>
                     </div>
                     <nav className="nav-menu">
@@ -52,21 +70,14 @@ export default function Home() {
                         <h1>Serviços</h1>
                     </div>
                     <div className="servicos">
-                        <Servicos
-                            titulo="Corte de Cabelo"
-                            imagem="/assets/corte-de-cabelo.svg"
-                            valor="R$ 40,00"
-                        />
-                        <Servicos
-                            titulo="Barba"
-                            imagem="/assets/penteado.svg"
-                            valor="R$ 30,00"
-                        />
-                        <Servicos
-                            titulo="Penteado"
-                            imagem="/assets/barba.svg"
-                            valor="R$ 50,00"
-                        />
+                        {servico.map((item) => (
+                            <Servicos
+                                key={item.id_servico}
+                                titulo={item.nome_servico}
+                                imagem={`${apiUrl}${item.imagem_servico}`}
+                                valor={`R$ ${item.valor_servico.toFixed(2)}`}
+                            />
+                        ))}
                     </div>
                 </section>
             </div>

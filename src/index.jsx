@@ -7,6 +7,7 @@ import Login from "./pages/login";
 import Agendamento from "./pages/agendamento";
 import Agendamentos from "./pages/admin/agendamentos";
 import Admin from "./pages/admin";
+import Servicos from "./pages/admin/servicos";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,6 +19,7 @@ root.render(
                 <Route path="/agendamento" element={<Agendamento />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/admin/agendamentos" element={<Agendamentos />} />
+                <Route path="/admin/servicos" element={<Servicos />} />
             </Routes>
         </BrowserRouter>
   </React.StrictMode>

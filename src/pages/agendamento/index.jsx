@@ -1,5 +1,5 @@
 import "./index.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -15,23 +15,23 @@ export default function Agendamento() {
 
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    async function listarServicos() {
+    const listarServicos = useCallback(async () => {
         try {
             let resp = await axios.get(`${apiUrl}servico`);
             setListaServicos(resp.data);
         } catch (error) {
             console.error('Erro ao listar serviços:', error);
         }
-    }
+    }, [apiUrl]);
 
-    async function listarHoras() {
+    const listarHoras = useCallback(async () => {
         try {
             let resp = await axios.get(`${apiUrl}horas`);
             setListaHorarios(resp.data);
         } catch (error) {
             console.error('Erro ao listar horários:', error);
         }
-    }
+    }, [apiUrl]);
 
     async function agendar() {
         let body = {
@@ -55,7 +55,7 @@ export default function Agendamento() {
     useEffect(() => {
         listarServicos();
         listarHoras();
-    }, []);
+    }, [listarServicos, listarHoras]);
 
     return (
         <div className='pagina-ag-agendamento'>

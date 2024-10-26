@@ -27,6 +27,9 @@ export default function Admin() {
                 <Link to='/admin/agendamentos' className="opcao">
                     <span>Agendamentos</span>
                 </Link>
+                <Link to='/admin/servicos' className="opcao">
+                    <span>Servicos</span>
+                </Link>
             </div>
         </div>
     );
