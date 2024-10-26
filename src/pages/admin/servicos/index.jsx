@@ -18,7 +18,7 @@ export default function Servicos() {
             formData.append('valorServico', valorServico);
             formData.append('tempoServico', tempoServico);
 
-            const response = await axios.post(`${apiUrl}servicos`, formData, {
+            const response = await axios.post(`${apiUrl}servico`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -33,7 +33,7 @@ export default function Servicos() {
 
     return (
         <div className='pagina-ag-agendamento'>
-            <h1>Agendar Horário</h1>
+            <h1>Adicionar Serviços</h1>
 
             <div className="form-group">
                 <label>Imagem</label>

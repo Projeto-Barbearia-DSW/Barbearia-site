@@ -30,6 +30,9 @@ export default function Admin() {
                 <Link to='/admin/servicos' className="opcao">
                     <span>Servicos</span>
                 </Link>
+                <Link to='/admin/servicosfeitos' className="opcao">
+                    <span>Servicos Feitos</span>
+                </Link>
             </div>
         </div>
     );

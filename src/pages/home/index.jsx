@@ -7,18 +7,29 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 
 export default function Home() {
-    const [servico, setServico] = useState([]);
+    const [servicos, setServicos] = useState([]);
+    const [servicosFeitos, setServicosFeitos] = useState([]);
 
     useEffect(() => {
         listarServicos();
+        listarServicosFeitos();
     }, []);
 
     async function listarServicos() {
         try {
-            let resp = await axios.get(`${apiUrl}servico`);
-            setServico(resp.data);
+            const resp = await axios.get(`${apiUrl}servico`);
+            setServicos(resp.data);
         } catch (error) {
             console.error('Erro ao listar serviços:', error);
+        }
+    }
+
+    async function listarServicosFeitos() {
+        try {
+            const resp = await axios.get(`${apiUrl}servicosfeitos`);
+            setServicosFeitos(resp.data);
+        } catch (error) {
+            console.error('Erro ao listar serviços feitos:', error);
         }
     }
 
@@ -28,7 +39,7 @@ export default function Home() {
                 <header>
                     <div className="logo">
                         <Link to='/Login' className="login">
-                            <img src={"/assets/logo.svg"} alt="Logo" />
+                            <img src={"/assets/logo.svg"} alt="Logo"/>
                         </Link>
                     </div>
                     <nav className="nav-menu">
@@ -59,7 +70,9 @@ export default function Home() {
                         <p>Horário de funcionamento: 09:00 às 22:00</p>
                     </div>
                     <div className="action-button">
-                        <button>Agendar Horário</button>
+                        <Link to='/Agendamento' className="opcao">
+                            <button>Agendar Horário</button>
+                        </Link>
                     </div>
                 </section>
             </div>
@@ -70,7 +83,7 @@ export default function Home() {
                         <h1>Serviços</h1>
                     </div>
                     <div className="servicos">
-                        {servico.map((item) => (
+                        {servicos.map((item) => (
                             <Servicos
                                 key={item.id_servico}
                                 titulo={item.nome_servico}
@@ -88,18 +101,13 @@ export default function Home() {
                         <h1>Serviços Feitos</h1>
                     </div>
                     <div className="servicos">
-                        <Servicos
-                            titulo="Corte de Cabelo"
-                            imagem="/assets/corte-de-cabelo.svg"
-                        />
-                        <Servicos
-                            titulo="Barba"
-                            imagem="/assets/barba.svg"
-                        />
-                        <Servicos
-                            titulo="Penteado"
-                            imagem="/assets/penteado.svg"
-                        />
+                        {servicosFeitos.map((item) => (
+                            <Servicos
+                                key={item.id_servico_feito}
+                                titulo={item.nome_servico_feito}
+                                imagem={`${apiUrl}${item.imagem_servico_feito}`}
+                            />
+                        ))}
                     </div>
                 </section>
             </div>
@@ -110,9 +118,12 @@ export default function Home() {
                         <h1>PLANOS</h1>
                     </div>
                     <div className="descricao">
-                        <p>Na nossa barbearia, cada cliente é especial e queremos que você tenha a melhor experiência possível.
-                            Por isso, oferecemos uma variedade de planos fixos. Confira presencialmente em nossa loja e escolha a opção que melhor se
-                            adapta às suas necessidades. Estamos ansiosos para recebê-lo e ajudar você a encontrar o plano perfeito!.
+                        <p>Na nossa barbearia, cada cliente é especial e queremos que você tenha a melhor experiência
+                            possível.
+                            Por isso, oferecemos uma variedade de planos fixos. Confira presencialmente em nossa loja e
+                            escolha a opção que melhor se
+                            adapta às suas necessidades. Estamos ansiosos para recebê-lo e ajudar você a encontrar o
+                            plano perfeito!.
                         </p>
                     </div>
                     <div className="servicos">
@@ -185,7 +196,7 @@ export default function Home() {
                             src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Centro%20Universitario%20Senac&zoom=15&maptype=roadmap"
                             width="600"
                             height="450"
-                            style={{ border: 0 }}
+                            style={{border: 0}}
                             allowFullScreen="false"
                             loading="lazy"
                             draggable="false"
@@ -199,9 +210,9 @@ export default function Home() {
             <div className={"secao7"} id="sobre">
                 <section>
                     <div className={"imagens"}>
-                        <img className={"barber1"} src="/assets/barbeiro1.svg" alt="Barbeiro 1" />
-                        <img className={"barber2"} src="/assets/barbeiro2.svg" alt="Barbeiro 2" />
-                        <img className={"barber3"} src="/assets/barbeiro3.svg" alt="Barbeiro 3" />
+                        <img className={"barber1"} src="/assets/barbeiro1.svg" alt="Barbeiro 1"/>
+                        <img className={"barber2"} src="/assets/barbeiro2.svg" alt="Barbeiro 2"/>
+                        <img className={"barber3"} src="/assets/barbeiro3.svg" alt="Barbeiro 3"/>
                     </div>
                     <div className={"textos"}>
                         <div className="titulo">
@@ -212,24 +223,29 @@ export default function Home() {
 
                             <p>Desde o nosso início, temos nos dedicado a criar um espaço acolhedor.
                                 Nossa equipe é composta por barbeiros experientes, cada um trazendo seu próprio estilo e
-                                expertise. Aqui, acreditamos que um bom corte ou um barbear bem feito vai além da estética; é um ritual
+                                expertise. Aqui, acreditamos que um bom corte ou um barbear bem feito vai além da
+                                estética; é um ritual
                                 de cuidado e autoestima.
                             </p>
 
-                            <p>Acreditamos que cada cliente é único, e por isso, oferecemos um atendimento personalizado.
-                                Nossa abordagem vai além dos serviços; buscamos entender suas necessidades e preferências,
-                                garantindo que você saia da nossa barbearia não apenas satisfeito, mas verdadeiramente renovado.
+                            <p>Acreditamos que cada cliente é único, e por isso, oferecemos um atendimento
+                                personalizado.
+                                Nossa abordagem vai além dos serviços; buscamos entender suas necessidades e
+                                preferências,
+                                garantindo que você saia da nossa barbearia não apenas satisfeito, mas verdadeiramente
+                                renovado.
                             </p>
 
                             <p>Estamos sempre prontos para recebê-lo de braços abertos! Se você procura um lugar onde
                                 tradição e inovação andam lado a lado,
-                                a nossa barbearia é o seu destino. Junte-se a nós e descubra o prazer de um bom corte e um
+                                a nossa barbearia é o seu destino. Junte-se a nós e descubra o prazer de um bom corte e
+                                um
                                 atendimento excepcional.
                                 Esperamos vê-lo em breve!
                             </p>
                             <div className="horario">
                                 <p><strong>Horário de funcionamento: 09:00 às 22:00</strong></p>
-                                <img src={"/assets/whatsapp.svg"} alt={"logo Whatsapp"} />
+                                <img src={"/assets/whatsapp.svg"} alt={"logo Whatsapp"}/>
                             </div>
                         </div>
                     </div>
@@ -245,7 +261,7 @@ export default function Home() {
                             <p>brunaocareca@gmail.com</p>
                         </div>
                         <div className="footer-column logo-column">
-                            <img src="/assets/logo.svg" alt="Logo Barbearia" className="footer-logo" />
+                            <img src="/assets/logo.svg" alt="Logo Barbearia" className="footer-logo"/>
                             <div className="social-icons">
                                 <img src="/assets/whatsapp-f.svg" alt="Icone 1"/>
                                 <img src="/assets/instagram-f.svg" alt="Icone 2"/>

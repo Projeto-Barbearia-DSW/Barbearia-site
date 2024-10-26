@@ -19,7 +19,7 @@ export default function Agendamentos() {
 
     async function listarAgendamentos() {
         let token = localStorage.getItem('TOKEN');
-        let resp = await axios.get(`${apiUrl}agendamentos`, {
+        let resp = await axios.get(`${apiUrl}agendamento`, {
             headers: { 'x-access-token': token }
         });
         setLista(resp.data);

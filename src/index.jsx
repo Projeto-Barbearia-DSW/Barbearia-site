@@ -8,6 +8,7 @@ import Agendamento from "./pages/agendamento";
 import Agendamentos from "./pages/admin/agendamentos";
 import Admin from "./pages/admin";
 import Servicos from "./pages/admin/servicos";
+import ServicosFeitos from "./pages/admin/servicosFeitos";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,6 +21,7 @@ root.render(
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/admin/agendamentos" element={<Agendamentos />} />
                 <Route path="/admin/servicos" element={<Servicos />} />
+                <Route path="/admin/servicosfeitos" element={<ServicosFeitos />} />
             </Routes>
         </BrowserRouter>
   </React.StrictMode>
