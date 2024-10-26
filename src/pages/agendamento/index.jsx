@@ -13,9 +13,11 @@ export default function Agendamento() {
     const [dataAgendamento, setDataAgendamento] = useState('');
     const navigate = useNavigate();
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     async function listarServicos() {
         try {
-            let resp = await axios.get('http://localhost:3010/servico');
+            let resp = await axios.get(`${apiUrl}servico`);
             setListaServicos(resp.data);
         } catch (error) {
             console.error('Erro ao listar serviços:', error);
@@ -24,7 +26,7 @@ export default function Agendamento() {
 
     async function listarHoras() {
         try {
-            let resp = await axios.get('http://localhost:3010/horas');
+            let resp = await axios.get(`${apiUrl}horas`);
             setListaHorarios(resp.data);
         } catch (error) {
             console.error('Erro ao listar horários:', error);
@@ -41,7 +43,7 @@ export default function Agendamento() {
         };
 
         try {
-            let resp = await axios.post('http://localhost:3010/agendamento', body);
+            let resp = await axios.post(`${apiUrl}agendamento`, body);
             alert('Agendamento realizado com sucesso: ' + resp.data.idAgendamento);
             navigate('/');
         } catch (error) {
@@ -57,6 +59,11 @@ export default function Agendamento() {
 
     return (
         <div className='pagina-ag-agendamento'>
+
+            <button className="home-btn" onClick={() => navigate('/')}>
+                &larr; Home
+            </button>
+
             <h1>Agendar Horário</h1>
 
             <div className="form-group">

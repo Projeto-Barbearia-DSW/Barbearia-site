@@ -240,7 +240,7 @@ export default function Home() {
                                 <img src="/assets/instagram-f.svg" alt="Icone 2"/>
                                 <img src="/assets/facebook-f.svg" alt="Icone 3"/>
                             </div>
-                            <p> Av. Eng. Eusébio Stevaux, 823 - Santo Amaro, São Paulo - SP, 04696-000</p>
+                            <p>Av. Eng. Eusébio Stevaux, 823 - Santo Amaro, São Paulo - SP, 04696-000</p>
                         </div>
                         <div className="footer-column">
                             <h3>Horário</h3>

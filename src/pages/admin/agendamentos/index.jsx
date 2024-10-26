@@ -3,6 +3,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import {useNavigate} from "react-router-dom";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export default function Agendamentos() {
     const [lista, setLista] = useState([]);
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ export default function Agendamentos() {
 
     async function listarAgendamentos() {
         let token = localStorage.getItem('TOKEN');
-        let resp = await axios.get('http://localhost:3010/agendamentos', {
+        let resp = await axios.get(`${apiUrl}agendamentos`, {
             headers: { 'x-access-token': token }
         });
         setLista(resp.data);

@@ -10,6 +10,8 @@ export default function Login() {
 
     const navigate = useNavigate();
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     async function logar() {
         try {
             let body = {
@@ -18,7 +20,7 @@ export default function Login() {
             }
 
 
-            let resp = await axios.post('http://localhost:3010/login', body);
+            let resp = await axios.post(`${apiUrl}login`, body);
 
             localStorage.setItem('TOKEN', resp.data.token);
 
@@ -31,21 +33,25 @@ export default function Login() {
 
     return (
         <div className='pagina-ln-login'>
+
+            <button className="home-btn" onClick={() => navigate('/')}>
+                &larr; Home
+            </button>
+
             <h1> Login </h1>
 
             <div className='form'>
-                <div>
+                <div className="form-group">
                     <label>E-mail</label>
                     <input type='text' value={email} onChange={e => setEmail(e.target.value)} />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Senha</label>
-                    <input type='text' value={senha} onChange={e => setSenha(e.target.value)}  />
+                    <input type='password' value={senha} onChange={e => setSenha(e.target.value)}  />
                 </div>
 
-                <div>
-                    <button onClick={logar}> Logar </button>
-                </div>
+                <button className="logar-btn" type="button" onClick={logar}> Logar </button>
+
             </div>
         </div>
     )
