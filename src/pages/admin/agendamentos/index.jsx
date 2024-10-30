@@ -25,6 +25,15 @@ export default function Agendamentos() {
         setLista(resp.data);
     }
 
+    async function excluir(id) {
+        await axios.delete(`${apiUrl}agendamento/${id}`);
+        listarAgendamentos();
+    }
+
+    async function alterar(agendamento) {
+        navigate('/agendamento', { state: { agendamento } });
+    }
+
     return (
         <div className="tabela">
             <table>
@@ -51,10 +60,12 @@ export default function Agendamentos() {
                         <td>{item.horario}</td>
                         <td>{item.nome_servico}</td>
                         <td>
-                            <button className="alterar">Alterar</button>
+                            <button onClick={() => alterar(item)} className="alterar">Alterar</button>
+
                         </td>
                         <td>
-                            <button className="excluir">Excluir</button>
+                            <button onClick={() => excluir(item.id_agendamento)} className="excluir">Excluir</button>
+
                         </td>
                     </tr>
                 )}

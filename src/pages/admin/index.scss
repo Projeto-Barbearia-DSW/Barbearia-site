@@ -1,37 +1,75 @@
-.iframe-content {
-    width: 100%;
-    height: 600px;
-    border: none;
-}
-.cabecalho {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 20px;
-    
-}
+.pagina-home-admin{
+    .cabecalho {
+        background-color: #070A14;
+        padding: 15px 20px;
+        position: fixed;
 
-.nav-menu-adm {
-    ul {
-        list-style: none;
-        display: flex;
-        gap: 20px;
-        padding: 0;
-        margin: 0;
+        width: 100%;
 
-        li {
-            a {
-                text-decoration: none;
-                color: white;
-                font-weight: 500;
-                transition: color 0.3s ease;
-                cursor: pointer;
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 auto;
 
-                &:hover {
-                    color: #F0B35B;
+            .imagenzinha {
+                img {
+                    height: 60px;
+                }
+            }
+
+            .nav-menu-adm {
+                ul {
+                    list-style: none;
+                    justify-content: center;
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    padding: 0;
+                    margin: 0 auto;
+
+                    li {
+                        a {
+                            text-decoration: none;
+                            color: white;
+                            font-weight: 500;
+                            transition: color 0.3s ease;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: #F0B35B;
+                            }
+                        }
+                    }
+                }
+            }
+            .action-button {
+                margin-right: 40px;
+                button {
+                    background-color: #F0B35B;
+                    color: black;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    font-family: 'Poppins', sans-serif;
+                    font-style: normal;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+
+                    &:hover {
+                        background-color: #a9834b;
+                    }
                 }
             }
         }
     }
+
+    .iframe-content {
+        padding: 70px 0px;
+        width: 100%;
+        height: 1050px;
+        border: none;
+    }
 }
+
+
