@@ -58,7 +58,7 @@ export default function Agendamento() {
     }, [listarServicos, listarHoras]);
 
     return (
-        <div className='pagina-ag-agendamento'>
+        <div className='pagina-agendamento'>
 
             <button className="home-btn" onClick={() => navigate('/')}>
                 &larr; Home

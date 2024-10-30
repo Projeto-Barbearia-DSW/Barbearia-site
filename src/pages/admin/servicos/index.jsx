@@ -1,6 +1,7 @@
 import "./index.scss";
 import axios from 'axios';
 import { useState } from 'react';
+import {useNavigate} from "react-router-dom";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -9,7 +10,7 @@ export default function Servicos() {
     const [nomeServico, setNomeServico] = useState('');
     const [valorServico, setValorServico] = useState('');
     const [tempoServico, setTempoServico] = useState('');
-
+    const navigate = useNavigate();
     async function adicionarServico() {
         try {
             const formData = new FormData();
@@ -32,7 +33,12 @@ export default function Servicos() {
     }
 
     return (
-        <div className='pagina-ag-agendamento'>
+        <div className='pagina-add-servico-admin'>
+
+            <button className="home-btn" onClick={() => navigate('/admin')}>
+                &larr; Voltar
+            </button>
+
             <h1>Adicionar Serviços</h1>
 
             <div className="form-group">
@@ -73,10 +79,11 @@ export default function Servicos() {
                 />
             </div>
 
-            <button className="agendar-btn" type="button" onClick={adicionarServico}>
+            <button className="agendar-btn1" type="button" onClick={adicionarServico}>
                 Adicionar Serviço
             </button>
-            <button className="agendar-btn" type="button">
+
+            <button className="agendar-btn2" type="button">
                 Ver Serviço
             </button>
         </div>
