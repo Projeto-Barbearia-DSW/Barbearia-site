@@ -1,0 +1,37 @@
+.iframe-content {
+    width: 100%;
+    height: 600px;
+    border: none;
+}
+.cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+    
+}
+
+.nav-menu-adm {
+    ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        padding: 0;
+        margin: 0;
+
+        li {
+            a {
+                text-decoration: none;
+                color: white;
+                font-weight: 500;
+                transition: color 0.3s ease;
+                cursor: pointer;
+
+                &:hover {
+                    color: #F0B35B;
+                }
+            }
+        }
+    }
+}

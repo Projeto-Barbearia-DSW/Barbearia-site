@@ -26,7 +26,7 @@ export default function Agendamentos() {
     }
 
     return (
-        <div>
+        <div className="tabela">
             <table>
                 <thead>
                 <tr>
