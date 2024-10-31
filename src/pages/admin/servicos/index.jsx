@@ -6,15 +6,15 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function Servicos() {
+
     const location = useLocation();
     const servico = location.state?.servico;
     const navigate = useNavigate();
-    const [imagem, setImagem] = useState(servico?.imagem_servico || '');
+    const [imagem, setImagem] = useState(servico ?`${apiUrl}${servico.imagem_servico}` : '');
     const [nomeServico, setNomeServico] = useState(servico?.nome_servico || '');
     const [valorServico, setValorServico] = useState(servico?.valor_servico || '');
     const [tempoServico, setTempoServico] = useState(servico?.tempo_servico || '');
     const [isDragOver, setIsDragOver] = useState(false);
-
 
     const handleDragOver = (e) => {
         e.preventDefault();
@@ -87,8 +87,9 @@ export default function Servicos() {
                     onDragLeave={handleDragLeave}
                     onDrop={handleDrop}
                 >
-                    {imagem && imagem instanceof File ? (
-                        <img src={URL.createObjectURL(imagem)} alt="Preview" className="image-preview"/>
+                    {imagem ? (
+                        <img src={imagem instanceof File ? URL.createObjectURL(imagem) : imagem} alt="Preview"
+                             className="image-preview"/>
                     ) : (
                         <p>Arraste e solte uma imagem aqui ou clique para selecionar.</p>
                     )}
@@ -133,7 +134,7 @@ export default function Servicos() {
             </div>
 
             <button className="agendar-btn1" type="button" onClick={adicionarServico}>
-                Serviço
+                {servico ? 'Atualizar Serviço' : 'Adicionar Servico'}
             </button>
 
             <Link to='/admin/listarServicos'>

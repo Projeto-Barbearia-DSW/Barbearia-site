@@ -1,16 +1,18 @@
 import "./index.scss";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Agendamento() {
+    const location = useLocation();
+    const agendamento = location.state?.agendamento;
     const [listaServicos, setListaServicos] = useState([]);
     const [listaHorarios, setListaHorarios] = useState([]);
-    const [nome, setNome] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [servico, setServico] = useState('');
-    const [horario, setHorario] = useState('');
-    const [dataAgendamento, setDataAgendamento] = useState('');
+    const [nome, setNome] = useState(agendamento?.nome_cliente || '');
+    const [telefone, setTelefone] = useState(agendamento?.telefone_cliente || '');
+    const [servico, setServico] = useState(agendamento?.id_servico || '');
+    const [horario, setHorario] = useState(agendamento?.id_horario || '');
+    const [dataAgendamento, setDataAgendamento] = useState(agendamento?.data_agendamento ? new Date(agendamento.data_agendamento).toISOString().split('T')[0] : '');
     const navigate = useNavigate();
 
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -43,9 +45,16 @@ export default function Agendamento() {
         };
 
         try {
-            let resp = await axios.post(`${apiUrl}agendamento`, body);
-            alert('Agendamento realizado com sucesso: ' + resp.data.idAgendamento);
-            navigate('/');
+            if (agendamento) {
+                let resp = await axios.put(`${apiUrl}agendamento/${agendamento.id_agendamento}`, body);
+                alert('Agendamento atualizado com sucesso: ' + resp.data.linhasAfetadas);
+                navigate('/admin/agendamentos');
+            } else {
+                let resp = await axios.post(`${apiUrl}agendamento`, body);
+                alert('Agendamento realizado com sucesso: ' + resp.data.novoId);
+                navigate('/');
+            }
+
         } catch (error) {
             console.error('Erro ao realizar o agendamento:', error);
             alert('Erro ao agendar. Verifique os dados e tente novamente.');
@@ -60,11 +69,7 @@ export default function Agendamento() {
     return (
         <div className='pagina-agendamento'>
 
-            <button className="home-btn" onClick={() => navigate('/')}>
-                &larr; Home
-            </button>
-
-            <h1>Agendar Horário</h1>
+            <h1>{agendamento ? 'Editar Agendamento' : 'Agendar Horário'}</h1>
 
             <div className="form-group">
                 <label>Nome Completo</label>
@@ -123,7 +128,7 @@ export default function Agendamento() {
             </div>
 
             <button className="agendar-btn" type="button" onClick={agendar}>
-                Agendar Horário
+                {agendamento ? 'Atualizar Agendamento' : 'Agendar Horário'}
             </button>
         </div>
     );
