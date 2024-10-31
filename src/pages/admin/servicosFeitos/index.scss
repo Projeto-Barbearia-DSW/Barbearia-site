@@ -115,4 +115,39 @@ body {
       background-color: #e6a532;
     }
   }
+
+  .drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    transition: border-color 0.3s;
+    position: relative;
+    margin-bottom: 10px;
+
+    &.drag-over {
+      border-color: #ffb13b;
+    }
+
+    .image-preview {
+      max-width: 100%;
+      max-height: 200px;
+      margin-top: 10px;
+    }
+
+    .file-label {
+      display: block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #ffb13b;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #e6a532;
+      }
+    }
+  }
 }

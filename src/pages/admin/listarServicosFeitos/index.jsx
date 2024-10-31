@@ -38,8 +38,8 @@ export default function ListarServicosFeitos() {
         }
     }
 
-    function alterar(servf) {
-        navigate('/admin/servicosFeitos', { state: { servf } });
+    function alterar(servicoFeito) {
+        navigate('/admin/servicosFeitos', { state: { servicoFeito } });
     }
 
     return (
@@ -59,7 +59,7 @@ export default function ListarServicosFeitos() {
                     <tr key={item.id_servico_feito}>
                         <td>{item.id_servico_feito}</td>
                         <td>
-                            <img src={item.imagem_servico_feito} alt={item.nome_servico_feito} style={{ width: '50px', height: '50px' }} />
+                            <img src={`${apiUrl}${item.imagem_servico_feito}`} alt={item.nome_servico_feito} style={{ width: '50px', height: '50px' }} />
                         </td>
                         <td>{item.nome_servico_feito}</td>
                         <td>

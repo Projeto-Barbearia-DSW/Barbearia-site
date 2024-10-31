@@ -1,15 +1,46 @@
 import "./index.scss";
 import axios from 'axios';
 import React, { useState } from 'react';
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function Servicos() {
-    const [imagem, setImagem] = useState(null);
-    const [nomeServico, setNomeServico] = useState('');
-    const [valorServico, setValorServico] = useState('');
-    const [tempoServico, setTempoServico] = useState('');
+    const location = useLocation();
+    const servico = location.state?.servico;
+    const navigate = useNavigate();
+    const [imagem, setImagem] = useState(servico?.imagem_servico || '');
+    const [nomeServico, setNomeServico] = useState(servico?.nome_servico || '');
+    const [valorServico, setValorServico] = useState(servico?.valor_servico || '');
+    const [tempoServico, setTempoServico] = useState(servico?.tempo_servico || '');
+    const [isDragOver, setIsDragOver] = useState(false);
+
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setIsDragOver(true);
+    };
+
+    const handleDragLeave = () => {
+        setIsDragOver(false);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            setImagem(file);
+        }
+        setIsDragOver(false);
+    };
+
+    const handleChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImagem(file);
+        }
+    };
+
     async function adicionarServico() {
         try {
             const formData = new FormData();
@@ -18,13 +49,25 @@ export default function Servicos() {
             formData.append('valorServico', valorServico);
             formData.append('tempoServico', tempoServico);
 
-            const response = await axios.post(`${apiUrl}servico`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            if (servico) {
+                const response = await axios.put(`${apiUrl}servico/${servico.id_servico}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
 
-            alert(`Serviço adicionado com sucesso! ID: ${response.data.novoId}`);
+                alert(`Serviço alterado com sucesso! ID: ${response.data.linhasAfetadas}`);
+                navigate('/admin/listarServicos');
+            } else {
+                const response = await axios.post(`${apiUrl}servico`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                alert(`Serviço adicionado com sucesso! ID: ${response.data.novoId}`);
+            }
+            navigate('/admin/listarServicos');
         } catch (err) {
             console.error('Erro ao adicionar serviço:', err);
             alert('Erro ao adicionar serviço');
@@ -38,10 +81,25 @@ export default function Servicos() {
 
             <div className="form-group">
                 <label>Imagem</label>
-                <input
-                    type="file"
-                    onChange={e => setImagem(e.target.files[0])}
-                />
+                <div
+                    className={`drop-zone ${isDragOver ? 'drag-over' : ''}`}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                >
+                    {imagem && imagem instanceof File ? (
+                        <img src={URL.createObjectURL(imagem)} alt="Preview" className="image-preview"/>
+                    ) : (
+                        <p>Arraste e solte uma imagem aqui ou clique para selecionar.</p>
+                    )}
+                    <input
+                        type="file"
+                        onChange={handleChange}
+                        style={{display: 'none'}}
+                        id="file-input"
+                    />
+                    <label htmlFor="file-input" className="file-label">Selecionar Imagem</label>
+                </div>
             </div>
 
             <div className="form-group">
@@ -75,9 +133,8 @@ export default function Servicos() {
             </div>
 
             <button className="agendar-btn1" type="button" onClick={adicionarServico}>
-                Adicionar Serviço
+                Serviço
             </button>
-
 
             <Link to='/admin/listarServicos'>
                 <button className="agendar-btn2" type="button">

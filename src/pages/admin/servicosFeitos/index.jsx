@@ -1,26 +1,73 @@
 import "./index.scss";
 import axios from 'axios';
 import React, { useState } from 'react';
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function ServicosFeitos() {
+    const location = useLocation();
+    const servicoFeito = location.state?.servicoFeito;
+    const navigate = useNavigate();
     const [imagem, setImagem] = useState(null);
     const [nomeServicoFeito, setnomeServicoFeito] = useState('');
+    const [isDragOver, setIsDragOver] = useState(false);
+
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setIsDragOver(true);
+    };
+
+    const handleDragLeave = () => {
+        setIsDragOver(false);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            setImagem(file);
+        }
+        setIsDragOver(false);
+    };
+
+    const handleChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImagem(file);
+        }
+    };
+
+
     async function adicionarServicoFeitos() {
         try {
             const formData = new FormData();
             formData.append('imagem', imagem);
             formData.append('nomeServicoFeito', nomeServicoFeito);
 
-            const response = await axios.post(`${apiUrl}servicosfeitos`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
 
-            alert(`Serviço adicionado com sucesso! ID: ${response.data.novoId}`);
+            if (servicoFeito) {
+                const response = await axios.put(`${apiUrl}servicosfeitos/${servicoFeito.id_servico_feito}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                alert(`Serviço Feito alterado com sucesso! ID: ${response.data.linhasAfetadas}`);
+                navigate('/admin/listarServicosFeitos');
+            } else {
+                const response = await axios.post(`${apiUrl}servicosfeitos`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                alert(`Serviço Feito adicionado com sucesso! ID: ${response.data.novoId}`);
+                navigate('/admin/listarServicosFeitos');
+            }
+
+
         } catch (err) {
             console.error('Erro ao adicionar serviço:', err);
             alert('Erro ao adicionar serviço');
@@ -34,10 +81,25 @@ export default function ServicosFeitos() {
 
             <div className="form-group">
                 <label>Imagem</label>
-                <input
-                    type="file"
-                    onChange={e => setImagem(e.target.files[0])}
-                />
+                <div
+                    className={`drop-zone ${isDragOver ? 'drag-over' : ''}`}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                >
+                    {imagem ? (
+                        <img src={URL.createObjectURL(imagem)} alt="Preview" className="image-preview"/>
+                    ) : (
+                        <p>Arraste e solte uma imagem aqui ou clique para selecionar.</p>
+                    )}
+                    <input
+                        type="file"
+                        onChange={handleChange}
+                        style={{display: 'none'}}
+                        id="file-input"
+                    />
+                    <label htmlFor="file-input" className="file-label">Selecionar Imagem</label>
+                </div>
             </div>
 
             <div className="form-group">
@@ -51,7 +113,7 @@ export default function ServicosFeitos() {
             </div>
 
             <button className="agendar-btn1" type="button" onClick={adicionarServicoFeitos}>
-                Adicionar Serviços Feitos
+                Serviços Feitos
             </button>
             <Link to='/admin/listarServicosFeitos'>
                 <button className="agendar-btn2" type="button">

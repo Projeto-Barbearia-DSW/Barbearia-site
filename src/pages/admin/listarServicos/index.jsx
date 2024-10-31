@@ -38,8 +38,8 @@ export default function ListarServicos() {
         }
     }
 
-    function alterar(serv) {
-        navigate('/admin/servicos', { state: { serv } });
+    function alterar(servico) {
+        navigate('/admin/servicos', { state: { servico } });
     }
 
     return (
@@ -61,7 +61,7 @@ export default function ListarServicos() {
                     <tr key={item.id_servico}>
                         <td>{item.id_servico}</td>
                         <td>
-                            <img src={item.imagem_servico} alt={item.nome_servico} style={{ width: '50px', height: '50px' }} />
+                            <img src={`${apiUrl}${item.imagem_servico}`} alt={item.nome_servico} style={{ width: '50px', height: '50px' }} />
                         </td>
                         <td>{item.nome_servico}</td>
                         <td>{item.valor_servico}</td>
