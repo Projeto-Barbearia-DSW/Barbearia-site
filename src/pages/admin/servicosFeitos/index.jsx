@@ -1,7 +1,7 @@
 import "./index.scss";
 import axios from 'axios';
 import React, { useState } from 'react';
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -9,10 +9,9 @@ export default function ServicosFeitos() {
     const location = useLocation();
     const servicoFeito = location.state?.servicoFeito;
     const navigate = useNavigate();
-    const [imagem, setImagem] = useState(null);
-    const [nomeServicoFeito, setnomeServicoFeito] = useState('');
+    const [imagem, setImagem] = useState(servicoFeito ? `${apiUrl}${servicoFeito.imagem_servico_feito}` : '');
+    const [nomeServicoFeito, setnomeServicoFeito] = useState(servicoFeito?.nome_servico_feito || '');
     const [isDragOver, setIsDragOver] = useState(false);
-
 
     const handleDragOver = (e) => {
         e.preventDefault();
@@ -39,13 +38,11 @@ export default function ServicosFeitos() {
         }
     };
 
-
     async function adicionarServicoFeitos() {
         try {
             const formData = new FormData();
             formData.append('imagem', imagem);
             formData.append('nomeServicoFeito', nomeServicoFeito);
-
 
             if (servicoFeito) {
                 const response = await axios.put(`${apiUrl}servicosfeitos/${servicoFeito.id_servico_feito}`, formData, {
@@ -53,7 +50,6 @@ export default function ServicosFeitos() {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-
                 alert(`Serviço Feito alterado com sucesso! ID: ${response.data.linhasAfetadas}`);
                 navigate('/admin/listarServicosFeitos');
             } else {
@@ -62,12 +58,9 @@ export default function ServicosFeitos() {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-
                 alert(`Serviço Feito adicionado com sucesso! ID: ${response.data.novoId}`);
                 navigate('/admin/listarServicosFeitos');
             }
-
-
         } catch (err) {
             console.error('Erro ao adicionar serviço:', err);
             alert('Erro ao adicionar serviço');
@@ -76,7 +69,6 @@ export default function ServicosFeitos() {
 
     return (
         <div className='pagina-servico-admin'>
-
             <h1>Adicionar Serviços Feitos</h1>
 
             <div className="form-group">
@@ -88,14 +80,15 @@ export default function ServicosFeitos() {
                     onDrop={handleDrop}
                 >
                     {imagem ? (
-                        <img src={URL.createObjectURL(imagem)} alt="Preview" className="image-preview"/>
+                        <img src={imagem instanceof File ? URL.createObjectURL(imagem) : imagem} alt="Preview"
+                             className="image-preview"/>
                     ) : (
                         <p>Arraste e solte uma imagem aqui ou clique para selecionar.</p>
                     )}
                     <input
                         type="file"
                         onChange={handleChange}
-                        style={{display: 'none'}}
+                        style={{ display: 'none' }}
                         id="file-input"
                     />
                     <label htmlFor="file-input" className="file-label">Selecionar Imagem</label>
@@ -113,7 +106,7 @@ export default function ServicosFeitos() {
             </div>
 
             <button className="agendar-btn1" type="button" onClick={adicionarServicoFeitos}>
-                Serviços Feitos
+                {servicoFeito ? 'Atualizar Serviço Feito' : 'Adicionar Servico Feito'}
             </button>
             <Link to='/admin/listarServicosFeitos'>
                 <button className="agendar-btn2" type="button">
