@@ -27,7 +27,7 @@ export default function Login() {
             navigate('/admin');
         }
         catch (err) {
-            alert(err.message)
+            alert("erro ao fazer login")
         }
     }
 

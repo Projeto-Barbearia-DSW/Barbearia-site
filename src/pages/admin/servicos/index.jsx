@@ -50,22 +50,22 @@ export default function Servicos() {
             formData.append('tempoServico', tempoServico);
 
             if (servico) {
-                const response = await axios.put(`${apiUrl}servico/${servico.id_servico}`, formData, {
+                await axios.put(`${apiUrl}servico/${servico.id_servico}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
 
-                alert(`Serviço alterado com sucesso! ID: ${response.data.linhasAfetadas}`);
+                alert(`Serviço alterado com sucesso!`);
                 navigate('/admin/listarServicos');
             } else {
-                const response = await axios.post(`${apiUrl}servico`, formData, {
+                await axios.post(`${apiUrl}servico`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
 
-                alert(`Serviço adicionado com sucesso! ID: ${response.data.novoId}`);
+                alert(`Serviço adicionado com sucesso!`);
             }
             navigate('/admin/listarServicos');
         } catch (err) {

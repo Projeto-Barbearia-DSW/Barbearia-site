@@ -45,20 +45,20 @@ export default function ServicosFeitos() {
             formData.append('nomeServicoFeito', nomeServicoFeito);
 
             if (servicoFeito) {
-                const response = await axios.put(`${apiUrl}servicosfeitos/${servicoFeito.id_servico_feito}`, formData, {
+                await axios.put(`${apiUrl}servicosfeitos/${servicoFeito.id_servico_feito}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                alert(`Serviço Feito alterado com sucesso! ID: ${response.data.linhasAfetadas}`);
+                alert(`Serviço Feito alterado com sucesso!`);
                 navigate('/admin/listarServicosFeitos');
             } else {
-                const response = await axios.post(`${apiUrl}servicosfeitos`, formData, {
+                await axios.post(`${apiUrl}servicosfeitos`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                alert(`Serviço Feito adicionado com sucesso! ID: ${response.data.novoId}`);
+                alert(`Serviço Feito adicionado com sucesso!`);
                 navigate('/admin/listarServicosFeitos');
             }
         } catch (err) {

@@ -34,7 +34,7 @@ export default function ListarServicos() {
             await axios.delete(`${apiUrl}servico/${id}`);
             listarServicos();
         } catch (error) {
-            console.error("Erro ao excluir serviço:", error);
+            console.error("Erro ao excluir serviço:");
         }
     }
 

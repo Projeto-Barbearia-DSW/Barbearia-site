@@ -5,14 +5,36 @@ import Servicos from "../../components/servicos";
 import { Link } from 'react-router-dom';
 const apiUrl = process.env.REACT_APP_API_URL;
 
-
 export default function Home() {
     const [servicos, setServicos] = useState([]);
     const [servicosFeitos, setServicosFeitos] = useState([]);
+    const [currentServicosIndex, setCurrentServicosIndex] = useState(0);
+    const [currentServicosFeitosIndex, setCurrentServicosFeitosIndex] = useState(0);
+    const itemsPerPage = 3;
+
 
     useEffect(() => {
         listarServicos();
         listarServicosFeitos();
+        const handleSmoothScroll = (e) => {
+            if (e.target.tagName === 'A' && e.target.hash) {
+                e.preventDefault();
+                const targetId = e.target.getAttribute("href").slice(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: "smooth"
+                    });
+                }
+            }
+        };
+
+        document.addEventListener("click", handleSmoothScroll);
+
+        return () => {
+            document.removeEventListener("click", handleSmoothScroll);
+        };
     }, []);
 
     async function listarServicos() {
@@ -30,6 +52,30 @@ export default function Home() {
             setServicosFeitos(resp.data);
         } catch (error) {
             console.error('Erro ao listar serviços feitos:', error);
+        }
+    }
+
+    function handleNextServicos() {
+        if (currentServicosIndex + itemsPerPage < servicos.length) {
+            setCurrentServicosIndex(currentServicosIndex + itemsPerPage);
+        }
+    }
+
+    function handlePrevServicos() {
+        if (currentServicosIndex - itemsPerPage >= 0) {
+            setCurrentServicosIndex(currentServicosIndex - itemsPerPage);
+        }
+    }
+
+    function handleNextServicosFeitos() {
+        if (currentServicosFeitosIndex + itemsPerPage < servicosFeitos.length) {
+            setCurrentServicosFeitosIndex(currentServicosFeitosIndex + itemsPerPage);
+        }
+    }
+
+    function handlePrevServicosFeitos() {
+        if (currentServicosFeitosIndex - itemsPerPage >= 0) {
+            setCurrentServicosFeitosIndex(currentServicosFeitosIndex - itemsPerPage);
         }
     }
 
@@ -83,7 +129,8 @@ export default function Home() {
                         <h1>Serviços</h1>
                     </div>
                     <div className="servicos">
-                        {servicos.map((item) => (
+                        <button onClick={handlePrevServicos} disabled={currentServicosIndex === 0}>{"<"}</button>
+                        {servicos.slice(currentServicosIndex, currentServicosIndex + itemsPerPage).map((item) => (
                             <Servicos
                                 key={item.id_servico}
                                 titulo={item.nome_servico}
@@ -91,6 +138,8 @@ export default function Home() {
                                 valor={`R$ ${item.valor_servico.toFixed(2)}`}
                             />
                         ))}
+                        <button onClick={handleNextServicos}
+                                disabled={currentServicosIndex + itemsPerPage >= servicos.length}>{">"}</button>
                     </div>
                 </section>
             </div>
@@ -101,13 +150,17 @@ export default function Home() {
                         <h1>Serviços Feitos</h1>
                     </div>
                     <div className="servicos">
-                        {servicosFeitos.map((item) => (
+                        <button onClick={handlePrevServicosFeitos}
+                                disabled={currentServicosFeitosIndex === 0}>{"<"}</button>
+                        {servicosFeitos.slice(currentServicosFeitosIndex, currentServicosFeitosIndex + itemsPerPage).map((item) => (
                             <Servicos
                                 key={item.id_servico_feito}
                                 titulo={item.nome_servico_feito}
                                 imagem={`${apiUrl}${item.imagem_servico_feito}`}
                             />
                         ))}
+                        <button onClick={handleNextServicosFeitos}
+                                disabled={currentServicosFeitosIndex + itemsPerPage >= servicosFeitos.length}>{">"}</button>
                     </div>
                 </section>
             </div>
