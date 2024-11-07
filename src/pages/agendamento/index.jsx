@@ -13,7 +13,6 @@ export default function Agendamento() {
     const [servico, setServico] = useState(agendamento?.id_servico || '');
     const [horario, setHorario] = useState(agendamento?.id_horario || '');
     const [dataAgendamento, setDataAgendamento] = useState(agendamento?.data_agendamento ? new Date(agendamento.data_agendamento).toISOString().split('T')[0] : '');
-    const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -36,20 +35,7 @@ export default function Agendamento() {
         }
     }, [apiUrl]);
 
-    const validate = () => {
-        const newErrors = {};
-        if (!nome) newErrors.nome = 'Nome é obrigatório';
-        if (!telefone) newErrors.telefone = 'Telefone é obrigatório';
-        if (!dataAgendamento) newErrors.dataAgendamento = 'Data do agendamento é obrigatória';
-        if (!servico) newErrors.servico = 'Serviço é obrigatório';
-        if (!horario) newErrors.horario = 'Horário é obrigatório';
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
-
     async function agendar() {
-        if (!validate()) return;
-
         let body = {
             'nomeCliente': nome,
             'telefoneCliente': telefone,
@@ -61,11 +47,11 @@ export default function Agendamento() {
         try {
             if (agendamento) {
                 await axios.put(`${apiUrl}agendamento/${agendamento.id_agendamento}`, body);
-                alert('Agendamento atualizado com sucesso ');
+                alert('Agendamento atualizado com sucesso: ');
                 navigate('/admin/agendamentos');
             } else {
                 await axios.post(`${apiUrl}agendamento`, body);
-                alert('Agendamento realizado com sucesso ');
+                alert('Agendamento realizado com sucesso: ');
                 navigate('/');
             }
         } catch (error) {
@@ -92,7 +78,6 @@ export default function Agendamento() {
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
                 />
-                {errors.nome && <span className="error">{errors.nome}</span>}
             </div>
 
             <div className="form-group">
@@ -103,7 +88,6 @@ export default function Agendamento() {
                     value={telefone}
                     onChange={(e) => setTelefone(e.target.value)}
                 />
-                {errors.telefone && <span className="error">{errors.telefone}</span>}
             </div>
 
             <div className="form-group">
@@ -113,7 +97,6 @@ export default function Agendamento() {
                     value={dataAgendamento}
                     onChange={(e) => setDataAgendamento(e.target.value)}
                 />
-                {errors.dataAgendamento && <span className="error">{errors.dataAgendamento}</span>}
             </div>
 
             <div className="form-group">
@@ -126,7 +109,6 @@ export default function Agendamento() {
                         </option>
                     ))}
                 </select>
-                {errors.servico && <span className="error">{errors.servico}</span>}
             </div>
 
             <div className="form-group">
@@ -142,7 +124,6 @@ export default function Agendamento() {
                         </button>
                     ))}
                 </div>
-                {errors.horario && <span className="error">{errors.horario}</span>}
             </div>
 
             <button className="agendar-btn" type="button" onClick={agendar}>
