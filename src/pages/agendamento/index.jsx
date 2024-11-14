@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
+import InputMask from 'react-input-mask';
 
 
 export default function Agendamento() {
@@ -91,11 +92,12 @@ export default function Agendamento() {
 
             <div className="form-group">
                 <label>Telefone</label>
-                <input
-                    type="text"
+                <InputMask
+                    mask="+55 (99) 99999-9999"
                     placeholder="Digite seu telefone"
                     value={telefone}
                     onChange={(e) => setTelefone(e.target.value)}
+                    className="input-mask"
                 />
             </div>
 
