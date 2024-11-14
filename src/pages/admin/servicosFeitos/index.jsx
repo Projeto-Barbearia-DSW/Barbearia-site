@@ -2,6 +2,7 @@ import "./index.scss";
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast, {Toaster} from "react-hot-toast";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -50,25 +51,32 @@ export default function ServicosFeitos() {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                alert(`Serviço Feito alterado com sucesso!`);
-                navigate('/admin/listarServicosFeitos');
+                toast.success('Serviço Feito alterado com sucesso!');
+                setTimeout(() => {
+                    navigate('/admin/listarServicosFeitos');
+                }, 1000);
+
             } else {
                 await axios.post(`${apiUrl}servicosfeitos`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                alert(`Serviço Feito adicionado com sucesso!`);
-                navigate('/admin/listarServicosFeitos');
+                toast.success('Serviço Feito adicionado com sucesso!');
+                setTimeout(() => {
+                    navigate('/admin/listarServicosFeitos');
+                }, 1000);
+
             }
         } catch (err) {
             console.error('Erro ao adicionar serviço:', err);
-            alert('Erro ao adicionar serviço');
+            toast.error('Erro ao adicionar serviço');
         }
     }
 
     return (
         <div className='pagina-servico-admin'>
+            <Toaster position="top-center" reverseOrder={false} />
             <h1>Adicionar Serviços Feitos</h1>
 
             <div className="form-group">

@@ -2,6 +2,8 @@ import "./index.scss";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export default function Agendamento() {
     const location = useLocation();
@@ -47,16 +49,22 @@ export default function Agendamento() {
         try {
             if (agendamento) {
                 await axios.put(`${apiUrl}agendamento/${agendamento.id_agendamento}`, body);
-                alert('Agendamento atualizado com sucesso: ');
-                navigate('/admin/agendamentos');
+                toast.success('Agendamento atualizado com sucesso. ');
+                setTimeout(() => {
+                    navigate('/admin/agendamentos');
+                }, 1000);
+
             } else {
                 await axios.post(`${apiUrl}agendamento`, body);
-                alert('Agendamento realizado com sucesso: ');
-                navigate('/');
+                toast.success('Agendamento realizado com sucesso. ');
+                setTimeout(() => {
+                    navigate('/');
+                }, 1000);
+
             }
         } catch (error) {
             const errorMessage = error.response?.data?.erro || 'Erro ao agendar. Verifique os dados e tente novamente.';
-            alert(errorMessage);
+            toast.error(errorMessage)
         }
     }
 
@@ -67,6 +75,7 @@ export default function Agendamento() {
 
     return (
         <div className='pagina-agendamento'>
+            <Toaster position="top-center" reverseOrder={false} />
 
             <h1>{agendamento ? 'Editar Agendamento' : 'Agendar Horário'}</h1>
 

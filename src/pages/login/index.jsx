@@ -1,5 +1,6 @@
 import './index.scss';
 import axios from 'axios'
+import toast, {Toaster} from 'react-hot-toast';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -21,18 +22,24 @@ export default function Login() {
 
 
             let resp = await axios.post(`${apiUrl}login`, body);
+            toast.success('Login efetuado com sucesso!');
 
             localStorage.setItem('TOKEN', resp.data.token);
 
-            navigate('/admin');
+
+            setTimeout(() => {
+                navigate('/admin');
+            }, 1000);
+
         }
         catch (err) {
-            alert("erro ao fazer login")
+            toast.error("erro ao fazer login")
         }
     }
 
     return (
         <div className='pagina-ln-login'>
+            <Toaster position="top-center" reverseOrder={false} />
 
             <button className="home-btn" onClick={() => navigate('/')}>
                 &larr; Home

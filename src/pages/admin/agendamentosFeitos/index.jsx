@@ -2,6 +2,7 @@ import "./index.scss"
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import toast, {Toaster} from "react-hot-toast";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -26,11 +27,13 @@ export default function AgendamentosFeitos() {
 
     async function excluir(id) {
         await axios.delete(`${apiUrl}agendamentofeito/${id}`);
+        toast.success('Agendamento excluído com sucesso!');
         listarAgendamentos();
     }
 
     return (
         <div className="tabela">
+            <Toaster position="top-center" reverseOrder={false} />
             <table>
                 <thead>
                 <tr>

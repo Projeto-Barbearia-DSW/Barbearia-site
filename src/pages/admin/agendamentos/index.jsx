@@ -2,6 +2,7 @@ import "./index.scss"
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import toast, {Toaster} from 'react-hot-toast';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -26,6 +27,7 @@ export default function Agendamentos() {
 
     async function excluir(id) {
         await axios.delete(`${apiUrl}agendamento/${id}`);
+        toast.success('Agendamento excluído com sucesso!');
         listarAgendamentos();
     }
 
@@ -42,6 +44,7 @@ export default function Agendamentos() {
             };
             await axios.post(`${apiUrl}agendamentofeito`, formattedAgendamento);
             await axios.delete(`${apiUrl}agendamento/${agendamento.id_agendamento}`);
+            toast.success('Serviço concluído com sucesso!');
             listarAgendamentos();
         } catch (error) {
             console.error('Error completing the appointment:', error.response.data);
@@ -50,6 +53,7 @@ export default function Agendamentos() {
 
     return (
         <div className="tabela">
+            <Toaster position="top-center" reverseOrder={false} />
             <table>
                 <thead>
                 <tr>

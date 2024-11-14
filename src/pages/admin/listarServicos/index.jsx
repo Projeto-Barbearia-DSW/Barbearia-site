@@ -2,6 +2,7 @@ import "./index.scss";
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import toast, {Toaster} from "react-hot-toast";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -32,9 +33,10 @@ export default function ListarServicos() {
     async function excluir(id) {
         try {
             await axios.delete(`${apiUrl}servico/${id}`);
+            toast.success('Serviço excluído com sucesso!');
             listarServicos();
         } catch (error) {
-            console.error("Erro ao excluir serviço:");
+            toast.error('Erro ao excluir serviço');
         }
     }
 
@@ -44,6 +46,7 @@ export default function ListarServicos() {
 
     return (
         <div className="tabela">
+            <Toaster position="top-center" reverseOrder={false} />
             <table>
                 <thead>
                 <tr>
