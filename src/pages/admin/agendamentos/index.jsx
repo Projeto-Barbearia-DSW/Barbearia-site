@@ -1,7 +1,7 @@
 import "./index.scss"
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -10,7 +10,6 @@ export default function Agendamentos() {
     const navigate = useNavigate();
 
     useEffect(() => {
-
         if (localStorage.getItem('TOKEN') === null || localStorage.getItem('TOKEN') === undefined) {
             navigate('/');
         }
@@ -34,6 +33,21 @@ export default function Agendamentos() {
         navigate('/agendamento', { state: { agendamento } });
     }
 
+    async function concluir(agendamento) {
+        try {
+            const formattedAgendamento = {
+                ...agendamento,
+                data_agendamento: new Date(agendamento.data_agendamento).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
+                valor_servico: agendamento.valor_servico // Include the service value
+            };
+            await axios.post(`${apiUrl}agendamentofeito`, formattedAgendamento);
+            await axios.delete(`${apiUrl}agendamento/${agendamento.id_agendamento}`);
+            listarAgendamentos();
+        } catch (error) {
+            console.error('Error completing the appointment:', error.response.data);
+        }
+    }
+
     return (
         <div className="tabela">
             <table>
@@ -45,6 +59,8 @@ export default function Agendamentos() {
                     <th>Data</th>
                     <th>Horario</th>
                     <th>Serviço</th>
+                    <th>Valor</th>
+                    <th>Concluir</th>
                     <th>Alterar</th>
                     <th>Excluir</th>
                 </tr>
@@ -59,13 +75,15 @@ export default function Agendamentos() {
                         <td>{new Date((item.data_agendamento)).toLocaleDateString('pt-BR')}</td>
                         <td>{item.horario}</td>
                         <td>{item.nome_servico}</td>
+                        <td>{item.valor_servico}</td>
+                        <td>
+                            <button onClick={() => concluir(item)} className="concluido">Concluido</button>
+                        </td>
                         <td>
                             <button onClick={() => alterar(item)} className="alterar">Alterar</button>
-
                         </td>
                         <td>
                             <button onClick={() => excluir(item.id_agendamento)} className="excluir">Excluir</button>
-
                         </td>
                     </tr>
                 )}

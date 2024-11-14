@@ -11,6 +11,8 @@ import Servicos from "./pages/admin/servicos";
 import ServicosFeitos from "./pages/admin/servicosFeitos";
 import ListarServicos from "./pages/admin/listarServicos";
 import ListarServicosFeitos from "./pages/admin/listarServicosFeitos";
+import AgendamentosFeitos from "./pages/admin/agendamentosFeitos";
+import ValoresMensais from "./pages/admin/valoresMensais";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,6 +28,8 @@ root.render(
                 <Route path="/admin/servicosfeitos" element={<ServicosFeitos />} />
                 <Route path="/admin/listarServicos" element={<ListarServicos />} />
                 <Route path="/admin/listarServicosFeitos" element={<ListarServicosFeitos />} />
+                <Route path="/admin/agendamentosfeitos" element={<AgendamentosFeitos />} />
+                <Route path="/admin/valoresMensais" element={<ValoresMensais />} />
             </Routes>
         </BrowserRouter>
   </React.StrictMode>

@@ -27,9 +27,11 @@ export default function Admin() {
                     <nav className="nav-menu-adm">
                         <ul>
                             <li><a href="#agendamentos" onClick={() => setIframeSrc('/admin/agendamentos')}>Agendamentos</a></li>
+                            <li><a href="#agendamentos-feitos" onClick={() => setIframeSrc('/admin/agendamentosfeitos')}>Agendamentos Feitos</a></li>
                             <li><a href="#servicos" onClick={() => setIframeSrc('/admin/servicos')}>Serviços</a></li>
                             <li><a href="#servicos-feitos" onClick={() => setIframeSrc('/admin/servicosfeitos')}>Serviços
                                 Feitos</a></li>
+                            <li><a href="#valores-mensais" onClick={() => setIframeSrc('/admin/valoresMensais')}>Valores Mensais</a></li>
                         </ul>
                     </nav>
                     <div className="action-button">

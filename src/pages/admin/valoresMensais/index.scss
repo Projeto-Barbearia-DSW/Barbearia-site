@@ -1,0 +1,29 @@
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // Centraliza verticalmente ocupando a altura total da viewport
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.custom-tooltip {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.label {
+  font-weight: bold;
+}
+
+.intro {
+  font-style: italic;
+}
+
+.desc {
+  margin-top: 5px;
+}
