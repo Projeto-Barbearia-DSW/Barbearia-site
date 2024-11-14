@@ -10,7 +10,9 @@ import {
     Tooltip,
     ResponsiveContainer
 } from "recharts";
+
 const apiUrl = process.env.REACT_APP_API_URL;
+
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
@@ -29,10 +31,21 @@ export default function App() {
     const fetchData = async () => {
         try {
             const response = await axios.get(`${apiUrl}valoresmensais`);
-            const formattedData = response.data.map(item => ({
-                name: `${item.mes}/${item.ano}`,
-                pv: item.valor_total
-            }));
+
+            const formattedData = response.data
+                .map(item => ({
+                    name: `${item.mes}/${item.ano}`,
+                    pv: item.valor_total,
+                    mes: item.mes,
+                    ano: item.ano
+                }))
+                .sort((a, b) => {
+                    if (a.ano === b.ano) {
+                        return a.mes - b.mes;
+                    }
+                    return a.ano - b.ano;
+                });
+
             setData(formattedData);
         } catch (error) {
             console.error('Erro ao buscar dados:', error);
@@ -42,6 +55,8 @@ export default function App() {
     useEffect(() => {
         fetchData();
     }, []);
+
+    const formatCurrency = (value) => `R$${value.toLocaleString('pt-BR')}`;
 
     return (
         <div className="chart-container">
@@ -57,7 +72,7 @@ export default function App() {
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis />
+                    <YAxis tickFormatter={formatCurrency} />
                     <Tooltip content={<CustomTooltip />} />
                     <Bar dataKey="pv" fill="#8884d8" barSize={30} />
                 </BarChart>
