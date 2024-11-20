@@ -1,9 +1,11 @@
 import "./index.scss";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import InputMask from 'react-input-mask';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 export default function Agendamento() {
     const location = useLocation();
@@ -14,7 +16,12 @@ export default function Agendamento() {
     const [telefone, setTelefone] = useState(agendamento?.telefone_cliente || '');
     const [servico, setServico] = useState(agendamento?.id_servico || '');
     const [horario, setHorario] = useState(agendamento?.id_horario || '');
-    const [dataAgendamento, setDataAgendamento] = useState(agendamento?.data_agendamento ? new Date(agendamento.data_agendamento).toISOString().split('T')[0] : '');
+    const [dataAgendamento, setDataAgendamento] = useState(agendamento?.data_agendamento ? new Date(agendamento.data_agendamento) : new Date());
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+    const [showCalendar, setShowCalendar] = useState(false);
+    const calendarRef = useRef(null);
     const navigate = useNavigate();
 
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -41,7 +48,7 @@ export default function Agendamento() {
         let body = {
             'nomeCliente': nome,
             'telefoneCliente': telefone,
-            'dataAgendamento': dataAgendamento,
+            'dataAgendamento': dataAgendamento.toISOString().split('T')[0],
             'idHorario': horario,
             'idServico': servico
         };
@@ -71,20 +78,69 @@ export default function Agendamento() {
         listarHoras();
     }, [listarServicos, listarHoras]);
 
-    const getMinDate = () => {
-        const now = new Date();
-        return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+
+    const startDrag = (e) => {
+        setIsDragging(true);
+        setStartX(e.pageX - e.currentTarget.offsetLeft);
+        setScrollLeft(e.currentTarget.scrollLeft);
     };
 
-    const getMaxDate = () => {
-        const now = new Date();
-        const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-        return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${lastDay}`;
+    const onDrag = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - e.currentTarget.offsetLeft;
+        const walk = (x - startX) * 2;
+        e.currentTarget.scrollLeft = scrollLeft - walk;
     };
+
+    const endDrag = () => {
+        setIsDragging(false);
+    };
+
+    const getMinDate = () => {
+        return new Date();
+    };
+
+    const tileDisabled = ({ date, view }) => {
+        const now = new Date();
+        if (view === 'month') {
+            return date < now.setHours(0, 0, 0, 0) || date.getDay() === 0;
+        }
+        return false;
+    };
+
+    const formatDate = (date) => {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
+    const handleDateChange = (date) => {
+        setDataAgendamento(date);
+        setShowCalendar(false);
+    };
+
+    const handleClickOutside = (event) => {
+        if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+            setShowCalendar(false);
+        }
+    };
+
+    useEffect(() => {
+        if (showCalendar) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showCalendar]);
 
     return (
         <div className='pagina-agendamento'>
-            <Toaster position="top-center" reverseOrder={false} />
+            <Toaster position="top-center" reverseOrder={false}/>
 
             <h1>{agendamento ? 'Editar Agendamento' : 'Agendar Horário'}</h1>
 
@@ -112,12 +168,23 @@ export default function Agendamento() {
             <div className="form-group">
                 <label>Data do Agendamento</label>
                 <input
-                    type="date"
-                    value={dataAgendamento}
-                    onChange={(e) => setDataAgendamento(e.target.value)}
-                    min={getMinDate()}
-                    max={getMaxDate()}
+                    type="text"
+                    value={formatDate(dataAgendamento)}
+                    readOnly
+                    onClick={() => setShowCalendar(!showCalendar)}
                 />
+                {showCalendar && (
+                    <div ref={calendarRef}>
+                        <Calendar
+                            onChange={handleDateChange}
+                            value={dataAgendamento}
+                            tileDisabled={tileDisabled}
+                            minDate={getMinDate()}
+                            className="calendar-overlay"
+
+                        />
+                    </div>
+                )}
             </div>
 
             <div className="form-group">
@@ -134,7 +201,13 @@ export default function Agendamento() {
 
             <div className="form-group">
                 <label>Selecione um horário</label>
-                <div className="button-group">
+                <div
+                    className="button-group"
+                    onMouseDown={startDrag}
+                    onMouseMove={onDrag}
+                    onMouseUp={endDrag}
+                    onMouseLeave={endDrag}
+                >
                     {listaHorarios.map((item) => (
                         <button
                             key={item.id_horario}

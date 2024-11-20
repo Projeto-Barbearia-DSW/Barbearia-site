@@ -1,75 +1,84 @@
-.pagina-home-admin{
-    .cabecalho {
-        background-color: #070A14;
-        padding: 15px 20px;
-        position: fixed;
+.pagina-home-admin {
+  .cabecalho {
+    background-color: #070A14;
+    padding: 15px 20px;
+    position: fixed;
 
-        width: 100%;
+    width: 100%;
 
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 0 auto;
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 auto;
 
-            .imagenzinha {
-                img {
-                    height: 60px;
-                }
-            }
-
-            .nav-menu-adm {
-                ul {
-                    list-style: none;
-                    justify-content: center;
-                    display: flex;
-                    align-items: center;
-                    gap: 20px;
-                    padding: 0;
-                    margin: 0 auto;
-
-                    li {
-                        a {
-                            text-decoration: none;
-                            color: white;
-                            font-weight: 500;
-                            transition: color 0.3s ease;
-                            cursor: pointer;
-
-                            &:hover {
-                                color: #F0B35B;
-                            }
-                        }
-                    }
-                }
-            }
-            .action-button {
-                margin-right: 40px;
-                button {
-                    background-color: #F0B35B;
-                    color: black;
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    font-family: 'Poppins', sans-serif;
-                    font-style: normal;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-
-                    &:hover {
-                        background-color: #a9834b;
-                    }
-                }
-            }
+      .imagenzinha {
+        img {
+          height: 60px;
         }
-    }
+      }
 
-    .iframe-content {
-        padding: 70px 0px;
-        width: 100%;
-        height: 1050px;
-        border: none;
+      .nav-menu-adm {
+        ul {
+          list-style: none;
+          justify-content: center;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          padding: 0;
+          margin: 0 auto;
+
+          li {
+            a {
+              text-decoration: none;
+              color: white;
+              font-weight: 500;
+              transition: color 0.3s ease;
+              cursor: pointer;
+
+              &:hover {
+                color: #F0B35B;
+              }
+
+              &:focus,
+              &.active { // Para usar com uma classe adicionada via JS
+                color: #F0B35B;
+                border-bottom: 2px solid #F0B35B; // Adiciona um destaque visual
+              }
+            }
+          }
+        }
+
+      }
+
+      .action-button {
+        margin-right: 40px;
+
+        button {
+          background-color: #F0B35B;
+          color: black;
+          padding: 10px 20px;
+          font-size: 16px;
+          font-family: 'Poppins', sans-serif;
+          font-style: normal;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #a9834b;
+          }
+        }
+      }
     }
+  }
+
+  .iframe-content {
+    padding: 70px 0px;
+    width: 100%;
+    height: 1050px;
+    border: none;
+  }
 }
 
 

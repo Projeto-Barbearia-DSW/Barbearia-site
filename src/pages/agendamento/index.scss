@@ -13,7 +13,6 @@ body {
   text-align: center;
   position: relative;
 
-
   .home-btn {
     position: absolute;
     top: 20px;
@@ -49,7 +48,7 @@ body {
       margin-bottom: 8px;
     }
 
-    .input-mask{
+    .input-mask {
       width: 100%;
       padding: 10px;
       font-size: 16px;
@@ -57,6 +56,7 @@ body {
       border-radius: 4px;
       box-sizing: border-box;
     }
+
     input[type="text"],
     input[type="date"],
     select {
@@ -78,8 +78,15 @@ body {
   .button-group {
     display: flex;
     gap: 8px;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* For Chrome, Safari, and Opera */
+    }
 
     button {
       padding: 10px 20px;
@@ -113,3 +120,13 @@ body {
     }
   }
 }
+
+.calendar-overlay {
+  position: absolute;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+
+

@@ -63,7 +63,6 @@ export default function Agendamentos() {
                     <th>Data</th>
                     <th>Horario</th>
                     <th>Serviço</th>
-                    <th>Valor</th>
                     <th>Concluir</th>
                     <th>Alterar</th>
                     <th>Excluir</th>
@@ -79,7 +78,6 @@ export default function Agendamentos() {
                         <td>{new Date((item.data_agendamento)).toLocaleDateString('pt-BR')}</td>
                         <td>{item.horario}</td>
                         <td>{item.nome_servico}</td>
-                        <td>{item.valor_servico}</td>
                         <td>
                             <button onClick={() => concluir(item)} className="concluido">Concluido</button>
                         </td>
