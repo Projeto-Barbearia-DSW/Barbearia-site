@@ -36,13 +36,20 @@ export default function Agendamento() {
     }, [apiUrl]);
 
     const listarHoras = useCallback(async () => {
-        try {
-            let resp = await axios.get(`${apiUrl}horas`);
-            setListaHorarios(resp.data);
-        } catch (error) {
-            console.error('Erro ao listar horários:', error);
-        }
-    }, [apiUrl]);
+    try {
+        let resp = await axios.get(`${apiUrl}horas`);
+        const now = new Date();
+        const filteredHorarios = resp.data.filter(item => {
+            const [hour, minute] = item.horario.split(':');
+            const horarioDate = new Date(dataAgendamento);
+            horarioDate.setHours(hour, minute, 0, 0);
+            return horarioDate > now;
+        });
+        setListaHorarios(filteredHorarios);
+    } catch (error) {
+        console.error('Erro ao listar horários:', error);
+    }
+}, [apiUrl, dataAgendamento]);
 
     async function agendar() {
         let body = {
