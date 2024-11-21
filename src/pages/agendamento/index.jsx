@@ -124,9 +124,11 @@ export default function Agendamento() {
     };
 
     const handleDateChange = (date) => {
-        setDataAgendamento(date);
-        setShowCalendar(false);
-    };
+    const adjustedDate = new Date(date);
+    adjustedDate.setDate(adjustedDate.getDate() + 1);
+    setDataAgendamento(adjustedDate);
+    setShowCalendar(false);
+};
 
     const handleClickOutside = (event) => {
         if (calendarRef.current && !calendarRef.current.contains(event.target)) {
