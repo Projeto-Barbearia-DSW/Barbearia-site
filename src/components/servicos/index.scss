@@ -14,7 +14,7 @@
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Garante que a imagem se ajuste ao contêiner */
+      object-fit: cover;
     }
   }
 
@@ -24,11 +24,11 @@
     align-items: center;
 
     &.distribuido {
-      justify-content: space-between; /* Distribui o título e o valor */
+      justify-content: space-between;
     }
 
     &.centralizado {
-      justify-content: center; /* Centraliza o título */
+      justify-content: center;
       text-align: center;
     }
   }

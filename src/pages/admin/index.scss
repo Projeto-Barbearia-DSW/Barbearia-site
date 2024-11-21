@@ -41,9 +41,9 @@
               }
 
               &:focus,
-              &.active { // Para usar com uma classe adicionada via JS
+              &.active {
                 color: #F0B35B;
-                border-bottom: 2px solid #F0B35B; // Adiciona um destaque visual
+                border-bottom: 2px solid #F0B35B;
               }
             }
           }

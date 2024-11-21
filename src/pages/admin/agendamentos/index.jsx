@@ -39,7 +39,7 @@ export default function Agendamentos() {
         try {
             const formattedAgendamento = {
                 ...agendamento,
-                data_agendamento: new Date(agendamento.data_agendamento).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
+                data_agendamento: new Date(agendamento.data_agendamento).toISOString().split('T')[0],
                 valor_servico: agendamento.valor_servico
             };
             await axios.post(`${apiUrl}agendamentofeito`, formattedAgendamento);
